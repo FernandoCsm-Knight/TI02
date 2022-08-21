@@ -1,0 +1,21 @@
+package maven.demo.app;
+
+import java.util.Scanner;
+
+import maven.demo.dao.DAO;
+import maven.demo.dao.UsuarioDAO;
+import maven.demo.model.Usuario;
+
+public class Principal {
+	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		UsuarioDAO uDAO = new UsuarioDAO();
+		int op = 0;
+		System.out.println(Usuario.getNextCode());
+		sc.close();
+	}
+	
+
+	
+}

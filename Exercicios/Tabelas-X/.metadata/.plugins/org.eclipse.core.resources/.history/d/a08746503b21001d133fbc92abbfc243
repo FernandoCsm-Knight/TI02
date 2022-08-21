@@ -1,0 +1,174 @@
+package maven.demo;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class UsuarioDAO extends DAO {
+	
+	public UsuarioDAO() {
+		super();
+		conectar();
+	}
+
+	public void finalize() {
+		close();
+	}
+	
+	
+	public boolean insert(Usuario usuario) {
+		boolean status = false;
+		try {  
+			String sql = "INSERT INTO usuario (codigo, login, senha, sexo) VALUES (?, ?, ?, ?);";
+			PreparedStatement pst = conexao.prepareStatement(sql);
+			pst.setInt(1, usuario.getCodigo());
+			pst.setString(2, usuario.getLogin());
+			pst.setString(3, usuario.getSenha());
+			pst.setString(4, "" + usuario.getSexo());
+			pst.executeUpdate();
+			System.out.println(sql);
+			pst.close();
+			status = true;
+		} catch (SQLException u) {  
+			throw new RuntimeException(u);
+		}
+		return status;
+	}
+
+	
+	public Usuario get(int codigo) {
+		Usuario usuario = null;
+		
+		try {
+			String sql = "SELECT * FROM produto WHERE id=?";
+			PreparedStatement pst = conexao.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			pst.setInt(1, codigo);
+			System.out.println(sql);
+			ResultSet rs = pst.executeQuery(sql);	
+	        if(rs.next()){            
+	        	 usuario = new Usuario(rs.getInt("codigo"), rs.getString("login"), rs.getString("senha"), rs.getString("sexo").charAt(0));
+	        }
+	        pst.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return usuario;
+	}
+	
+	
+	public List<Usuario> get() {
+		return get("");
+	}
+
+	
+	public List<Usuario> getOrderByCodigo() {
+		return get("codigo");		
+	}
+	
+	
+	public List<Usuario> getOrderByLogin() {
+		return get("login");		
+	}
+	
+	
+	public List<Usuario> getOrderBySexo() {
+		return get("sexo");		
+	}
+	
+	
+	private List<Usuario> get(String orderBy) {	
+	
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		
+		try {
+			String sql = "SELECT * FROM usuario" + ((orderBy.trim().length() == 0) ? "" : (" ORDER BY ?"));
+			PreparedStatement pst = conexao.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			pst.setString(1, orderBy);
+			System.out.println(sql);
+			ResultSet rs = pst.executeQuery(sql);	           
+	        while(rs.next()) {	            	
+	        	Usuario u = new Usuario(rs.getInt("codigo"), rs.getString("login"), rs.getString("senha"), rs.getString("sexo").charAt(0));
+	            usuarios.add(u);
+	        }
+	        pst.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return usuarios;
+	}
+
+
+	public List<Usuario> getSexoMasculino() {
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		
+		try {
+			String sql = "SELECT * FROM usuario WHERE usuario.sexo LIKE 'M'";
+			PreparedStatement pst = conexao.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			System.out.println(sql);
+			ResultSet rs = pst.executeQuery(sql);	           
+	        while(rs.next()) {	            	
+	        	Usuario u = new Usuario(rs.getInt("codigo"), rs.getString("login"), rs.getString("senha"), rs.getString("sexo").charAt(0));
+	            usuarios.add(u);
+	        }
+	        pst.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return usuarios;
+	}
+	
+	
+	public boolean update(Usuario usuario) {
+		boolean status = false;
+		try {  
+			String sql = "UPDATE usuario SET login = ?, senha = ?, sexo = ? WHERE codigo = ?";
+			PreparedStatement pst = conexao.prepareStatement(sql);
+			pst.setString(1, usuario.getLogin());
+			pst.setString(2, usuario.getSenha());
+			pst.setString(3, ""+usuario.getSexo());
+			pst.setInt(4, usuario.getCodigo());
+			System.out.println(sql);
+			pst.executeUpdate(sql);
+			pst.close();
+			status = true;
+		} catch (SQLException u) {  
+			throw new RuntimeException(u);
+		}
+		return status;
+	}
+	
+	public boolean delete(int codigo) {
+		boolean status = false;
+		try {  
+			String sql = "DELETE FROM usuario WHERE codigo = ?";
+			PreparedStatement pst = conexao.prepareStatement(sql);
+			pst.setInt(1,  codigo);
+			System.out.println(sql);
+			pst.executeUpdate(sql);
+			pst.close();
+			status = true;
+		} catch (SQLException u) {  
+			throw new RuntimeException(u);
+		}
+		return status;
+	}
+	
+	
+	public boolean autenticar(String login, String senha) {
+		boolean resp = false;
+		
+		try {
+			String sql = "SELECT * FROM usuario WHERE login LIKE ? AND senha LIKE ?";
+			PreparedStatement pst = conexao.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			pst.setString(1, login);
+			pst.setString(2, senha);
+			System.out.println(sql);
+			ResultSet rs = pst.executeQuery(sql);
+			resp = rs.next();
+	        pst.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return resp;
+	}	
+}

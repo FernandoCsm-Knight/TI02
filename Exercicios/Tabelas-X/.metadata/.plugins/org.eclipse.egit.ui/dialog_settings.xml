@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="org.eclipse.egit.ui.internal.clone.GitSelectWizardPageWizardSel" value="2"/>
+	<item key="GitSelectRepositoryPage.lastRepository" value="C:\Users\ferna\git\ti2cc\.git"/>
+	<list key="RepositorySelectionPage.UsedUris">
+		<item value="https://github.com/icei-pucminas/ti2cc.git"/>
+		<item value="https://github.com/FernandoCsm-Knight/TI02.git"/>
+		<item value="git://github.com/FernandoCsm-Knight/TI02.git"/>
+	</list>
+	<list key="EGit.KnownHosts">
+		<item value="bitbucket.org"/>
+		<item value="git.eclipse.org"/>
+		<item value="github.com"/>
+	</list>
+	<section name="GitImportWizard">
+	</section>
+</section>
