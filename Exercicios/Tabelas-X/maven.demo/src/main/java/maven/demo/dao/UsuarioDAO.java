@@ -1,5 +1,10 @@
 package maven.demo.dao;
 
+/**
+ * Código retirado de https://github.com/icei-pucminas/ti2cc.
+ * Adaptação por Fernando Campos Silva Dal Maria
+ */
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
