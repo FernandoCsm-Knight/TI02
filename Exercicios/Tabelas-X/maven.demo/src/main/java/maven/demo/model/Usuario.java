@@ -2,6 +2,10 @@ package maven.demo.model;
 
 import maven.demo.dao.UsuarioDAO;
 
+/**
+ * Código retirado de https://github.com/icei-pucminas/ti2cc.
+ * Adaptação por Fernando Campos Silva Dal Maria
+ */
 public class Usuario {
 	private static UsuarioDAO uDAO = new UsuarioDAO();
 	private int codigo;
