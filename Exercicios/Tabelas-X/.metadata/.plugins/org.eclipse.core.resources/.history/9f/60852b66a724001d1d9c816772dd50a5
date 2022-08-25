@@ -108,7 +108,6 @@ public class Principal {
 		System.out.println();
 		
 		Usuario u = new Usuario(Usuario.getNextCode(), login, senha, sexo);
-		Usuario.increment();
 		boolean res = uDAO.insert(u);
 		return res;
 	}	
