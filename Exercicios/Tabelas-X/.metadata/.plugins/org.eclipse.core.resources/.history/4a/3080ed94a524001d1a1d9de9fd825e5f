@@ -1,0 +1,22 @@
+package maven.demo.dao;
+
+public class ProdutoDAO extends DAO {
+
+	public ProdutoDAO() {
+		conectar();
+	}
+	
+	public void finalize() {
+		close();
+	}
+	
+	public boolean insert() {
+		
+		try {
+			
+		} catch() {
+			
+		}
+	}
+	
+}

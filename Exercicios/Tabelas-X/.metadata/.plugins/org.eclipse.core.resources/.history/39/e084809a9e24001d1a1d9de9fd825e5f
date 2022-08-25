@@ -1,0 +1,9 @@
+package maven.demo.model;
+
+public class Produto {
+
+	private int id;
+	private String name;
+	private String 
+	
+}

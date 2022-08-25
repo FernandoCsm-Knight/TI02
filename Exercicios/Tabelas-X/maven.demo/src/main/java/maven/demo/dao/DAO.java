@@ -1,9 +1,5 @@
 package maven.demo.dao;
 
-/**
- * Código retirado de https://github.com/icei-pucminas/ti2cc.
- */
-
 import java.sql.*;
 import java.security.*;
 import java.math.*;

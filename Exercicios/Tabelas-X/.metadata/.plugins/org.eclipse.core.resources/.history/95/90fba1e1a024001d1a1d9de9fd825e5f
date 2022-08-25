@@ -1,0 +1,5 @@
+package maven.demo.dao;
+
+public class ProdutoDAO {
+
+}

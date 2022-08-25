@@ -3,13 +3,8 @@ package maven.demo.app;
 import java.util.List;
 import java.util.Scanner;
 
-import maven.demo.dao.DAO;
 import maven.demo.dao.UsuarioDAO;
 import maven.demo.model.Usuario;
-
-/**
- * Desenvolvido por Fernando Campos Silva Dal Maria
- */
 
 public class Principal {
 	private static UsuarioDAO uDAO = new UsuarioDAO();
@@ -88,16 +83,6 @@ public class Principal {
 	}
 	
 	public static void listUsers() {
-		//System.out.println("Ordenar por:");
-		//System.out.println("(0) padrao\n(1) codigo\n(2) login\n(3) senha\n(4) sexo\n");
-		//System.out.print("? ");
-		
-		//String op = sc.nextLine();
-		//System.out.println(op);
-		//if(op.equals("padrao")) {
-		//	System.out.println("Entrou");
-		//	l = uDAO.get();
-		//}
 		List<Usuario> l = uDAO.get("codigo");
 		for(Usuario u : l) {
 			System.out.println(u.toString());

@@ -1,10 +1,5 @@
 package maven.demo.dao;
 
-/**
- * Código retirado de https://github.com/icei-pucminas/ti2cc.
- * Adaptação por Fernando Campos Silva Dal Maria
- */
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +28,6 @@ public class UsuarioDAO extends DAO {
 			pst.setString(3, usuario.getSenha());
 			pst.setString(4, "" + usuario.getSexo());
 			pst.executeUpdate();
-			System.out.println(sql);
 			pst.close();
 			status = true;
 		} catch (SQLException u) {  
@@ -50,7 +44,6 @@ public class UsuarioDAO extends DAO {
 			String sql = "SELECT * FROM usuario WHERE codigo=?";
 			PreparedStatement pst = conexao.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			pst.setInt(1, codigo);
-			System.out.println(sql);
 			ResultSet rs = pst.executeQuery(sql);	
 	        if(rs.next()){            
 	        	 usuario = new Usuario(rs.getInt("codigo"), rs.getString("login"), rs.getString("senha"), rs.getString("sexo").charAt(0));
@@ -104,12 +97,19 @@ public class UsuarioDAO extends DAO {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		
 		try {
-			String sql = "SELECT * FROM usuario" + ((orderBy.trim().length() == 0 || orderBy == null) ? "" : (" ORDER BY ?"));
-			PreparedStatement pst = conexao.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-			pst.setString(1, orderBy);
-			System.out.println(sql);
+			String sql;
+			PreparedStatement pst;
+			if(orderBy.trim().length() == 0 || orderBy == null) {
+				sql = "SELECT * FROM usuario";
+				pst = conexao.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			} else {
+				sql = "SELECT * FROM usuario ORDER BY ?";
+				pst = conexao.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+				pst.setString(1, orderBy);
+			}
+			
 			ResultSet rs = pst.executeQuery();	           
-	        while(rs.next()) {	            	
+	        while(rs.next()) {
 	        	Usuario u = new Usuario(rs.getInt("codigo"), rs.getString("login"), rs.getString("senha"), rs.getString("sexo").charAt(0));
 	            usuarios.add(u);
 	        }
@@ -127,7 +127,6 @@ public class UsuarioDAO extends DAO {
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			String sql = "SELECT * FROM usuario WHERE usuario.sexo LIKE 'M'";
-			System.out.println(sql);
 			ResultSet rs = st.executeQuery(sql);	           
 	        while(rs.next()) {	            	
 	        	Usuario u = new Usuario(rs.getInt("codigo"), rs.getString("login"), rs.getString("senha"), rs.getString("sexo").charAt(0));
@@ -166,7 +165,6 @@ public class UsuarioDAO extends DAO {
 			String sql = "DELETE FROM usuario WHERE codigo = ?";
 			PreparedStatement pst = conexao.prepareStatement(sql);
 			pst.setInt(1,  codigo);
-			System.out.println(sql);
 			pst.executeUpdate();
 			pst.close();
 			status = true;
@@ -185,7 +183,6 @@ public class UsuarioDAO extends DAO {
 			PreparedStatement pst = conexao.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			pst.setString(1, login);
 			pst.setString(2, senha);
-			System.out.println(sql);
 			ResultSet rs = pst.executeQuery();
 			resp = rs.next();
 	        pst.close();
