@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Controle de Estoque</title>
+	<style>
+		*, *::before, *::after {
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+		}
+		
+		body {
+			background-color: #cccccc;
+			padding: 1rem;
+		}
+		
+		h1 {
+			text-align: center; 
+			padding-bottom: 1rem;
+		}
+		
+		a:link {
+			color: #059862;
+		}
+		
+		a:hover {
+			color: #05d862;
+		}
+		
+		a:visited {
+			color: #559862;
+		}
+		
+		form {
+			margin: 0 auto;	
+			max-width: 80%; 
+			border-radius: 5px;
+		}
+		
+		.table-form {
+			border-radius: 5px;
+			width: 100%;
+			background-color: #f3f3f3; 
+			text-align: center;
+		}
+		
+		.table-form-bottom {
+			max-width: 80%;
+			margin: 15px auto 0 auto;
+		}	
+		
+		.input--main__style {
+			background-color: #00FF00;
+		}
+		
+		.input--button {
+			font-weight: bold;
+			font-family: Arial;
+			font-size: medium;
+			border-color: transparent;
+			display: block;
+			margin: 0px auto;
+			margin-bottom: 10px;
+			color: white;
+		}
+		
+		.input--register {
+			display: inline;
+		}
+		
+		input {
+			display: block;
+			border-radius: 7px;
+			padding: 10px;
+			border-style: solid;
+			border-color: lightgray;
+			color: black;
+			padding: 10px;
+			margin-bottom: 10px;
+		}
+		
+		form p {
+			text-align: initial;
+			display: inline;
+			margin-left: 15px;
+		}
+		
+		.p--nomargin {
+			margin-left: 0px;
+			margin-right: 10px;
+		}
+		
+		@media only screen and (max-width: 850px) {
+			form {
+				max-width: 100%;
+			}
+			
+			.table-form-bottom {
+				max-width: 100%;
+			}
+		}
+		
+		@media only screen and (max-width: 650px) {
+			.table-form:not(.table-form-bottom) td {
+				display: block;
+			}
+		}
+		
+	</style>
+</head>
+<body>
+	<h1>Controle de Estoque</h1>
+	<input type="hidden" id="msg" name="msg" value="">
+    <UM-PRODUTO>
+
+	<LISTAR-PRODUTO>
+
+
+	<script>
+		function confirmarDeleteProduto(id, descricao, preco) {  
+		    if (confirm('Confirmar a exclusão do produto [' + descricao + '] (ID ' + id + ') com preço R$ ' + preco)) {  
+		        location.href = '/produto/delete/' + id;
+		    }
+		}
+		
+		onload = () => {
+			if(document.getElementById("msg").value != ""){
+		      alert(document.getElementById("msg").value);
+		    }
+		}
+	</script>
+</body>
+</html>
